@@ -1,0 +1,22 @@
+.colorButton{
+    width: 15vh;
+    height: 15vh;
+    cursor: pointer;
+    opacity: 0.6;
+    border-radius: 10px;
+    border:none;
+    margin: 2px;
+}
+
+.colorButton:active{
+    opacity: 1;
+}
+
+.noOpacity{
+    opacity: 1;
+}
+
+.row{
+    display: block;
+}
+  
