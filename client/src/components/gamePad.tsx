@@ -7,14 +7,21 @@ type Props = {
 }
 const GamePad: React.FC<Props> = ({ checkCorectness, randomColors }) => {
     const COLOR_BUTTON: string = 'colorButton';
+    const NO_OPACITY: string = 'noOpacity';
     const [disabled, setDisabled] = useState<boolean>(true);
-    const [greenClass, setGreenClass] = useState<string>('colorButton');
-    const [redClass, setRedClass] = useState<string>('colorButton');
-    const [yellowClass, setYellowClass] = useState<string>('colorButton');
-    const [blueClass, setBlueClass] = useState<string>('colorButton');
+    const [greenClass, setGreenClass] = useState<string>(COLOR_BUTTON);
+    const [redClass, setRedClass] = useState<string>(COLOR_BUTTON);
+    const [yellowClass, setYellowClass] = useState<string>(COLOR_BUTTON);
+    const [blueClass, setBlueClass] = useState<string>(COLOR_BUTTON);
 
     const timeout = (ms: number) => {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const setAndResetClass = async(setState: any) => {
+        setState(`${COLOR_BUTTON} ${NO_OPACITY}`);
+        await timeout(1000);
+        setState(COLOR_BUTTON);
     }
 
     const highlightRandomColors = async () => {
@@ -23,24 +30,16 @@ const GamePad: React.FC<Props> = ({ checkCorectness, randomColors }) => {
         for (let i: number = 0; i < randomColors.length; i++) {
             switch (randomColors[i]) {
                 case 'red':
-                    setRedClass('colorButton noOpacity');
-                    await timeout(1000);
-                    setRedClass('colorButton');
+                    await setAndResetClass(setRedClass);
                     break;
                 case 'green':
-                    setGreenClass('colorButton noOpacity');
-                    await timeout(1000);
-                    setGreenClass('colorButton');
+                    await setAndResetClass(setGreenClass);
                     break;
                 case 'yellow':
-                    setYellowClass('colorButton noOpacity');
-                    await timeout(1000);
-                    setYellowClass('colorButton');
+                    await setAndResetClass(setYellowClass);
                     break;
                 case 'blue':
-                    setBlueClass('colorButton noOpacity');
-                    await timeout(1000);
-                    setBlueClass('colorButton');
+                    await setAndResetClass(setBlueClass);
                     break;
             }
             if (i !== randomColors.length - 1 && randomColors[i] === randomColors[i + 1])
